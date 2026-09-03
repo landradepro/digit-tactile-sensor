@@ -11,7 +11,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', [
             'launch/digit.launch.py',
-            'launch/digit_wsl2.launch.py',
+            'launch/digit_sim.launch.py',
             'launch/digit_robot.launch.py',
         ]),
     ],
