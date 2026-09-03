@@ -242,7 +242,7 @@ thing that breaks this stack.
 ### Step 5.4 — Clone this repo and build the ROS2 workspace
 
 ```bash
-git clone <this-repo-url> ~/digit_ws
+git clone https://github.com/landradepro/digit-tactile-sensor.git ~/digit_ws
 cd ~/digit_ws
 python3 -m venv --system-site-packages digit_env
 source digit_env/bin/activate
