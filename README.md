@@ -378,13 +378,3 @@ design decision in this repo, not just a one-off fix:
 
 ---
 
-## 11. Roadmap
-
-- [x] Sensor bring-up and reference-frame contact detection
-- [x] Pressure/force proxy
-- [x] Calibrated 3D depth reconstruction (photometric stereo)
-- [x] Modular ROS2 package with custom message types
-- [x] Grasp-decision state machine (close / hold / slip / regrasp)
-- [x] Robot-free simulation via TACTO
-- [ ] Deployment on real robot hardware
-- [ ] VLM/VLA integration for language-conditioned tactile manipulation
