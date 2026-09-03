@@ -28,6 +28,7 @@ setup(
             'pressure_estimator = digit_ros2.pressure_estimator_node:main',
             'depth_reconstructor = digit_ros2.depth_reconstructor_node:main',
             'grasp_decision = digit_ros2.grasp_decision_node:main',
+            'sim_gripper_forwarder = digit_ros2.sim_gripper_forwarder_node:main',
         ],
     },
 )
