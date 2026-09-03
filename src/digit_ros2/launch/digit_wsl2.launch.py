@@ -20,6 +20,8 @@ def generate_launch_description():
             description='IP address of the Windows PC running windows_stream_server.py '
                          '(tip: export DIGIT_STREAM_HOST=<ip> to avoid retyping this)')
 
+    stream_port_arg = DeclareLaunchArgument('stream_port', default_value='8090')
+
     digit_launch_path = os.path.join(
         get_package_share_directory('digit_ros2'), 'launch', 'digit.launch.py')
 
@@ -27,9 +29,9 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(digit_launch_path),
         launch_arguments={
             'stream_host': LaunchConfiguration('stream_host'),
-            'stream_port': '8090',
+            'stream_port': LaunchConfiguration('stream_port'),
             'enable_depth': 'false',
         }.items(),
     )
 
-    return LaunchDescription([stream_host_arg, base_launch])
+    return LaunchDescription([stream_host_arg, stream_port_arg, base_launch])

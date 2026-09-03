@@ -37,8 +37,6 @@ class GraspDecisionNode(Node):
         contact_topic = self.get_parameter('contact_topic').value
         pressure_topic = self.get_parameter('pressure_topic').value
         command_topic = self.get_parameter('command_topic').value
-        self.target_pressure = self.get_parameter('target_pressure').value
-        self.slip_drop_ratio = self.get_parameter('slip_drop_ratio').value
         history_size = self.get_parameter('history_size').value
 
         self.pressure_history = deque(maxlen=history_size)
@@ -63,21 +61,24 @@ class GraspDecisionNode(Node):
             self.pressure_history.clear()
             return
 
+        target_pressure = self.get_parameter('target_pressure').value
+        slip_drop_ratio = self.get_parameter('slip_drop_ratio').value
+
         pressure = msg.pressure_proxy
         self.pressure_history.append(pressure)
 
         if self.state in (GripperState.HOLDING, GripperState.REGRASPING):
-            if self._detect_slip():
+            if self._detect_slip(slip_drop_ratio):
                 self._transition(GripperState.SLIP_DETECTED)
                 self._transition(GripperState.REGRASPING)
                 return
 
-        if pressure >= self.target_pressure:
+        if pressure >= target_pressure:
             self._transition(GripperState.HOLDING)
         else:
             self._transition(GripperState.CLOSING)
 
-    def _detect_slip(self):
+    def _detect_slip(self, slip_drop_ratio):
         if len(self.pressure_history) < self.pressure_history.maxlen:
             return False
         oldest = self.pressure_history[0]
@@ -85,7 +86,7 @@ class GraspDecisionNode(Node):
         if oldest <= 0:
             return False
         drop_ratio = (oldest - newest) / oldest
-        return drop_ratio >= self.slip_drop_ratio
+        return drop_ratio >= slip_drop_ratio
 
     def _transition(self, new_state):
         if new_state != self.state:
