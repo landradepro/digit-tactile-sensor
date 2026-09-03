@@ -10,6 +10,8 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     device_index_arg = DeclareLaunchArgument('device_index', default_value='0')
+    stream_host_arg = DeclareLaunchArgument('stream_host', default_value='')
+    stream_port_arg = DeclareLaunchArgument('stream_port', default_value='8090')
     image_topic_arg = DeclareLaunchArgument('topic', default_value='digit/image_raw')
     rate_arg = DeclareLaunchArgument('publish_rate_hz', default_value='30.0')
     enable_depth_arg = DeclareLaunchArgument('enable_depth', default_value='true')
@@ -23,6 +25,8 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'device_index': ParameterValue(LaunchConfiguration('device_index'), value_type=int),
+            'stream_host': LaunchConfiguration('stream_host'),
+            'stream_port': ParameterValue(LaunchConfiguration('stream_port'), value_type=int),
             'topic': LaunchConfiguration('topic'),
             'publish_rate_hz': ParameterValue(LaunchConfiguration('publish_rate_hz'), value_type=float),
         }],
@@ -58,6 +62,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         device_index_arg,
+        stream_host_arg,
+        stream_port_arg,
         image_topic_arg,
         rate_arg,
         enable_depth_arg,
