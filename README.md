@@ -201,9 +201,10 @@ ros2 launch digit_ros2 digit_robot.launch.py device_index:=2
 
 (replace `2` with your index from step 5.2). This starts every node: the
 camera publisher, contact detector, pressure estimator, and grasp decision
-state machine (depth reconstruction is on by default with this preset —
-see [section 7](#7-optional-calibrated-3d-depth-reconstruction) for the
-one-time calibration it needs, or pass `enable_depth:=false` to skip it).
+state machine (depth reconstruction is off by default, since it needs a
+one-time calibration a fresh clone won't have yet — see
+[section 7](#7-optional-calibrated-3d-depth-reconstruction), then pass
+`enable_depth:=true` once you've done it).
 
 **Two of the nodes need a one-time "zero point" before they report anything
 meaningful** — they work by comparing each frame against a reference frame
