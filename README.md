@@ -367,7 +367,3 @@ folder to the Linux side (default expected path
 ```bash
 ros2 launch digit_ros2 digit_wsl2.launch.py enable_depth:=true
 ```
-- [x] Grasp-decision state machine (close / hold / slip / regrasp)
-- [x] Robot-free simulation via TACTO
-- [ ] Deployment on real robot hardware
-- [ ] VLM/VLA integration for language-conditioned tactile manipulation
