@@ -27,6 +27,7 @@ setup(
             'contact_detector = digit_ros2.contact_detector_node:main',
             'pressure_estimator = digit_ros2.pressure_estimator_node:main',
             'depth_reconstructor = digit_ros2.depth_reconstructor_node:main',
+            'grasp_decision = digit_ros2.grasp_decision_node:main',
         ],
     },
 )

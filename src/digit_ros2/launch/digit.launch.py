@@ -15,6 +15,9 @@ def generate_launch_description():
     image_topic_arg = DeclareLaunchArgument('topic', default_value='digit/image_raw')
     rate_arg = DeclareLaunchArgument('publish_rate_hz', default_value='30.0')
     enable_depth_arg = DeclareLaunchArgument('enable_depth', default_value='true')
+    enable_grasp_decision_arg = DeclareLaunchArgument('enable_grasp_decision', default_value='true')
+    target_pressure_arg = DeclareLaunchArgument('target_pressure', default_value='350.0')
+    slip_drop_ratio_arg = DeclareLaunchArgument('slip_drop_ratio', default_value='0.3')
     calibration_dir_arg = DeclareLaunchArgument(
         'calibration_dir', default_value=os.path.expanduser('~/digit_ws/calibration_data'))
 
@@ -60,6 +63,18 @@ def generate_launch_description():
         }],
     )
 
+    grasp_decision_node = Node(
+        package='digit_ros2',
+        executable='grasp_decision',
+        name='grasp_decision',
+        output='screen',
+        condition=IfCondition(LaunchConfiguration('enable_grasp_decision')),
+        parameters=[{
+            'target_pressure': ParameterValue(LaunchConfiguration('target_pressure'), value_type=float),
+            'slip_drop_ratio': ParameterValue(LaunchConfiguration('slip_drop_ratio'), value_type=float),
+        }],
+    )
+
     return LaunchDescription([
         device_index_arg,
         stream_host_arg,
@@ -67,9 +82,13 @@ def generate_launch_description():
         image_topic_arg,
         rate_arg,
         enable_depth_arg,
+        enable_grasp_decision_arg,
+        target_pressure_arg,
+        slip_drop_ratio_arg,
         calibration_dir_arg,
         camera_node,
         contact_node,
         pressure_node,
         depth_node,
+        grasp_decision_node,
     ])
