@@ -24,10 +24,6 @@ explains not just *what* to run, but *why*.
 5. [Step-by-step setup](#5-step-by-step-setup)
 6. [Running the full pipeline](#6-running-the-full-pipeline)
 7. [Optional: calibrated 3D depth reconstruction](#7-optional-calibrated-3d-depth-reconstruction)
-8. [Optional: robot-free simulation with TACTO](#8-optional-robot-free-simulation-with-tacto)
-9. [Troubleshooting / FAQ](#9-troubleshooting--faq)
-10. [Technical challenges this project solved](#10-technical-challenges-this-project-solved)
-11. [Roadmap](#11-roadmap)
 
 ---
 
@@ -69,9 +65,7 @@ connection into a VM (VMware, VirtualBox) or into WSL2 via `usbipd`, the
 video comes out corrupted (banded rainbow artifacts) and/or severely
 throttled (a few frames per second instead of 30). This is a documented,
 structural limitation of how isochronous USB transfers (the kind cameras
-use) survive virtualization on Windows — it isn't a config mistake, and no
-combination of settings fixes it. See [section 10](#10-technical-challenges-this-project-solved)
-for the full story.
+use) survive virtualization on Windows.
 
 The fix this repo uses: **never pass the raw USB connection into Linux at
 all.** Instead:
@@ -154,7 +148,7 @@ simulation/                 Robot-free simulation bridge
 
 ## 4. Prerequisites
 
-- **A DIGIT sensor**, plugged into a Windows PC via USB.
+- **A DIGIT sensor**, plugged into a PC via USB.
 - **Windows 10/11** with Python 3.9+ installed.
 - **A Linux environment for ROS2**: WSL2 running Ubuntu 22.04 is what this
   guide uses (recommended for anyone without a spare Linux machine), but a
@@ -242,7 +236,7 @@ thing that breaks this stack.
 ```bash
 git clone https://github.com/landradepro/digit-tactile-sensor.git ~/digit_ws
 cd ~/digit_ws
-python3 -m venv --system-site-packages digit_env
+python3 -m venv digit_env
 source digit_env/bin/activate
 colcon build
 source install/setup.bash
@@ -338,8 +332,7 @@ ros2 launch digit_ros2 digit_robot.launch.py device_index:=0
 Contact detection and pressure are enough for most closed-loop grasp logic,
 but DIGIT's real party trick is reconstructing actual 3D contact geometry in
 millimeters. This needs a one-time calibration using a small rigid sphere of
-known diameter (a steel BB, a bearing ball, or — what this project used — a
-3D-printed ball).
+known diameter (a steel BB, a bearing ball).
 
 ```bash
 python digit-sensor/calibrate_capture.py --device-index 1
