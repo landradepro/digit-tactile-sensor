@@ -161,8 +161,6 @@ simulation/                 Robot-free simulation bridge
   real Ubuntu 22.04 install or the eventual robot's own onboard computer
   works too.
 - **ROS2 Humble** installed in that Linux environment.
-- Basic comfort with a terminal. No prior ROS2 or computer-vision experience
-  is assumed beyond that.
 
 ---
 
