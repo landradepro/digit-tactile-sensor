@@ -37,7 +37,6 @@ step explains not just *what* to run, but *why*.
 8. [No physical robot? Simulate one with TACTO](#8-no-physical-robot-simulate-one-with-tacto)
 9. [Troubleshooting / FAQ](#9-troubleshooting--faq)
 10. [Technical challenges this project solved](#10-technical-challenges-this-project-solved)
-11. [Roadmap](#11-roadmap)
 
 ---
 
@@ -140,8 +139,6 @@ simulation/                      Robot-free simulation bridge
   ROS2 (or skip this and go straight to the [TACTO simulation](#8-no-physical-robot-simulate-one-with-tacto)
   if you don't have one yet).
 - **Ubuntu 22.04** with **ROS2 Humble** installed.
-- Basic comfort with a terminal. No prior ROS2 or computer-vision
-  experience is assumed beyond that.
 
 ---
 
@@ -178,15 +175,11 @@ the index you'll use below.
 ```bash
 git clone https://github.com/landradepro/digit-tactile-sensor.git ~/digit_ws
 cd ~/digit_ws
-python3 -m venv --system-site-packages digit_env
+python3 -m venv digit_env
 source digit_env/bin/activate
 colcon build
 source install/setup.bash
 ```
-
-`--system-site-packages` is required — it lets this venv see the
-`apt`-installed `rclpy`/`cv_bridge`/`opencv` while still keeping any `pip`
-installs isolated to the venv.
 
 ---
 
